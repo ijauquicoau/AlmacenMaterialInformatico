@@ -3,7 +3,7 @@ package com.masanz.almacen.almacendematerial.Model;
 import javafx.geometry.Pos;
 
 public class Posicion {
-    private static  String letras = "abcde";
+    private static final String letras = "abcde";
     private char fila;
     private int columna;
 
@@ -24,42 +24,57 @@ public class Posicion {
         this.columna =Integer.parseInt(""+p.charAt(1));
     }
     public char getFila(){
-        return 0;
+        return fila;
     }
     public int getFilaNumber(){
-        return 0;
+        return letras.indexOf(""+fila);
     }
     public void setFila(char f){
+        this.fila = f;
 
     }
     public void setFilaNumber(int fn){
+       fila = letras.charAt(fn -1);
 
     }
     public void setFilaColumnaNumbers(int f,int c){
+      setFilaNumber(f);
+
+      setColumna(c);
 
     }
     public static String getLetras(){
-        return letras;
+        return letras ;
     }
     public int getColumna(){
-        return 0;
+        return columna;
+    }
+    public void setColumna(int i){
+        columna=i;
     }
     private int filaToInt(char f){
-        return 0;
+        return letras.indexOf(""+f)+1;
     }
     private char filaToChar(int f){
-        return 0;
+        return letras.charAt(f -1);
     }
 
     public boolean equals(Object o){
+        Posicion p = (Posicion) o;
+        if (p.fila == fila && p.columna == columna){
+            return true;
+        }
         return false;
     }
-
+    public int hashCode(){
+        return filaToInt(fila)*10 + columna  ;
+    }
     public String toString(){
-        return null;
+
+        return ""+letras + columna;
     }
     public int compareTo(Posicion p){
-        return 0;
+        return p.hashCode()-hashCode();
     }
 }
 

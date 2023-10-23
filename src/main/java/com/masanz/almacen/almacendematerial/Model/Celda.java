@@ -1,6 +1,9 @@
 package com.masanz.almacen.almacendematerial.Model;
 
+import com.masanz.almacen.almacendematerial.Exceptions.ExcepcionAmi;
+
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Celda {
@@ -8,7 +11,8 @@ public class Celda {
     private List<Articulo> lista;
 
     public Celda(int c){
-
+        this.espacio = c;
+        this.lista = new LinkedList<>();
     }
     public List<Articulo>getLista(){
         return lista;
@@ -25,25 +29,42 @@ public class Celda {
     public void setLista(List<Articulo> lista) {
         this.lista = lista;
     }
-    public void meter(Articulo a){
+    public void meter(Articulo a) throws ExcepcionAmi{
 
+        if (estaArticulo(a)){
+            throw new ExcepcionAmi("El articulo ya está en la lista");
+        }else if (getEspacioLibre()< a.getEspacio()) {
+            throw new ExcepcionAmi("No hay espacio suficiente en esta celda");
+        }else {
+            lista.add(a);
+        }
     }
     public int getEspacioLibre(){
-        return 0;
+        return this.espacio - getEspacioOcupado();
     }
     public int getEspacioOcupado(){
-        return 0;
+        int espacioOcupado = 0;
+        for (Articulo a: lista) {
+            espacioOcupado += a.getEspacio();
+        }
+        return espacioOcupado;
     }
     public boolean estaArticulo(Articulo a){
-        return false;
+
+        return lista.contains(a);
     }
-    public boolean existeIdArticulo(String s){
-        return false;
+    public boolean existeIdArticulo(String id){
+        return getArticulo(id) != null;
     }
-    public Articulo getArticulo(String s){
+    public Articulo getArticulo(String id){
+        for (Articulo a: lista) {
+            if (a.getId()== id)
+                return a;
+        }
         return null;
     }
     public Iterator<Articulo> iterator(){
-        return null;
+
+        return lista.iterator();
     }
 }

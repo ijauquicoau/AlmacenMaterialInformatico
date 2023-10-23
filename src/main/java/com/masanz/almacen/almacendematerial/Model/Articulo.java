@@ -15,8 +15,8 @@ public class Articulo {
 
     }
 
-    public Articulo(String A){
-
+    public Articulo(String id){
+    this.id = id;
 
     }
     public Articulo(String Ar, ETipoArticulo e, int n,LocalDate lc,double d){
@@ -28,8 +28,15 @@ public class Articulo {
 
     }
     public boolean equals(Object o){
-        return false;
+        if (!(o instanceof Articulo)){
+            return false;
+        }
+        Articulo a = (Articulo) o;
+        if (a.id == id){
+            return true;
+        }
 
+        return false;
     }
 
     @Override
@@ -38,7 +45,12 @@ public class Articulo {
     }
 
     public String toString(){
-        return null;
+
+             return  "      Id: "+ id+
+                     "\n    Tipo: "+ tipo+
+                     "\n Espacio: "+ espacio+
+                     "\n   Fecha: "+ fechaAdquisicion+
+                     "\n  Precio: "+precio;
     }
 
     public String getId() {
@@ -82,7 +94,11 @@ public class Articulo {
     }
 
 
-
+    public static void main(String[] args) {
+        LocalDate fecha = LocalDate.parse("2023-06-11");
+        Articulo a = new Articulo("CPU1001",ETipoArticulo.CPU,2, fecha,25);
+        System.out.println(a);
+    }
 }
 
 
