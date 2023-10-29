@@ -29,6 +29,8 @@ public class Celda {
     public void setLista(List<Articulo> lista) {
         this.lista = lista;
     }
+
+
     public void meter(Articulo a) throws ExcepcionAmi{
 
         if (estaArticulo(a)){
@@ -66,5 +68,10 @@ public class Celda {
     public Iterator<Articulo> iterator(){
 
         return lista.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return null;//todo
     }
 }

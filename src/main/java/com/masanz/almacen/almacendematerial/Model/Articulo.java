@@ -16,7 +16,7 @@ public class Articulo {
     }
 
     public Articulo(String id){
-    this.id = id;
+        this.id = id;
 
     }
     public Articulo(String Ar, ETipoArticulo e, int n,LocalDate lc,double d){
@@ -46,11 +46,11 @@ public class Articulo {
 
     public String toString(){
 
-             return  "      Id: "+ id+
-                     "\n    Tipo: "+ tipo+
-                     "\n Espacio: "+ espacio+
-                     "\n   Fecha: "+ fechaAdquisicion+
-                     "\n  Precio: "+precio;
+        return  "      Id: "+ id+
+                "\n    Tipo: "+ tipo+
+                "\n Espacio: "+ espacio+
+                "\n   Fecha: "+ fechaAdquisicion+
+                "\n  Precio: "+precio;
     }
 
     public String getId() {
