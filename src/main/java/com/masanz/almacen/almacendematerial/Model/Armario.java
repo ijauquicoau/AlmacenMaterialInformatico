@@ -2,19 +2,22 @@ package com.masanz.almacen.almacendematerial.Model;
 
 import com.masanz.almacen.almacendematerial.Exceptions.ExcepcionAmi;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Armario {
     public static final int Filas = 5;
     public static final int Columnas = 4;
     public static final int Espacios_X_Celda = 4;
-    private Celda[][] celdas;
+    private Celda[][] celdas = new Celda[Filas][Columnas];;
 
     public Armario(){
-        this.celdas = new Celda[Filas][Columnas];
+        for (int i = 0; i < Filas; i++) {
+            for (int j = 0; j < Columnas; j++) {
+                celdas[i][j] = new Celda(Espacios_X_Celda);
+
+            }
+
+        }
     }
     public int getFilas(){
         return Filas;
@@ -24,7 +27,7 @@ public class Armario {
         return Columnas;
     }
     public Celda getCelda(int f,int c){
-        return celdas [f][c];
+        return celdas[f][c];
 
     }
     public int getEspacioLibre(Posicion p){
@@ -147,6 +150,30 @@ public class Armario {
         return listado;
     }
 
+    @Override
+    public String toString() {//prueba del to string
+        String s = "";
+        String letras = "ABCDE";
+
+        s +="   |                   1                   |                   2                   |                   3                   |                   4                   |\n";
+        s+="--------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+        for (int i = 0; i < Filas; i++) {
+            s += " "+ letras.charAt(i)+ " |";
+
+            for (int j = 0; j <Columnas ; j++) {
+                Celda c = celdas[i][j];
+                s+=  c.toString();
+
+            }
+            s += "\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+        }
+        return s;
+    }
 }
+
+
+
 
 

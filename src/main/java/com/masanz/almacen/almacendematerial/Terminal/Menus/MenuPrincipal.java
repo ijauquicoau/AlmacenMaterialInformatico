@@ -1,6 +1,8 @@
 package com.masanz.almacen.almacendematerial.Terminal.Menus;
 
 import com.masanz.almacen.almacendematerial.Managers.GestorAlmacen;
+import com.masanz.almacen.almacendematerial.Model.Armario;
+import com.masanz.almacen.almacendematerial.Model.ETipoArticulo;
 
 import java.util.Scanner;
 
@@ -66,17 +68,37 @@ public class MenuPrincipal {
                 cargaDatos();
 
             }
+            numero = -1;
         }
     }
 
     private void mostrarArmario() {
-        System.out.println(" |                  1                   |                  2                   |                  3                  |                  4                  |");
-        System.out.println("  ");
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
+        Armario a = gestorAlmacen.getArmario();
+        System.out.println(a);
     }
 
     private void meterArticulo() {
+        String id = "";
+        double precio;
+        ETipoArticulo tipo = null;
+        Scanner scanner = new Scanner(System.in);
+        while (id.length()!= 7){
+            System.out.print("Id del articulo (7 caracteres), ej. MON001: ");
+            id = scanner.next();
+            if (id.length()!= 7){
+                System.out.println("El ID tiene que tener 7 caracteres, inténtelo de nuevo");
+            }
+        }
+
+        while (tipo != null){
+            System.out.print("Id del articulo (7 caracteres), ej. MON001: ");
+            try {
+                tipo = ETipoArticulo.valueOf(scanner.next());
+            } catch (IllegalArgumentException e) {
+                System.out.println("El ID tiene que tener 7 caracteres, inténtelo de nuevo");
+            }
+        }
+
 
     }
 

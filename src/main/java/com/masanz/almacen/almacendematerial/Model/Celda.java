@@ -71,7 +71,31 @@ public class Celda {
     }
 
     @Override
-    public String toString() {
-        return null;//todo
+    public String toString() {//prueba del tostirng
+        String s =  "";
+        if (lista.isEmpty()){
+            return "                                       |";
+        }
+        for (Articulo a:lista) {
+            int espacio = a.getEspacio();
+            if (espacio == 1){
+                s +=  "_"+ a.getId() +"_|";
+            }else if (espacio == 2){
+                s += "______" + a.getId() + "______|";
+            }else if (espacio == 3){
+                s += "___________"+ a.getId() +"___________|";
+            }else{
+                s += "________________" +a.getId() + "________________|";
+            }
+        }
+        int espacioLibre = getEspacioLibre();
+        if (espacioLibre == 1 ){
+            s += "         |";
+        }else if (espacioLibre == 2){
+            s += "         |         |";
+        }else{
+            s += "         |         |         |";
+        }
+        return s;
     }
 }

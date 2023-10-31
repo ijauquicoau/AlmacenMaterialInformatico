@@ -8,7 +8,7 @@ import java.util.Map;
 public class GestorAlmacen {
 
     private static final int ESPACIOS_CELDA = 4;
-    private Armario armario;
+    private Armario armario = new Armario();
 
 
     public GestorAlmacen(){

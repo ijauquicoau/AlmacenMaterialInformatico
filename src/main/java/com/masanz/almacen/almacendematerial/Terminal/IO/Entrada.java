@@ -2,7 +2,7 @@ package com.masanz.almacen.almacendematerial.Terminal.IO;
 
 import java.util.Scanner;
 
-public class Entrada {
+public class Entrada {//queda por revisar
 
     public static int LeerEntero(String s,int n1,int n2){
         Scanner teclado = new Scanner(System.in);
