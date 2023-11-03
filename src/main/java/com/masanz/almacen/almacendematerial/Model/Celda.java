@@ -2,6 +2,7 @@ package com.masanz.almacen.almacendematerial.Model;
 
 import com.masanz.almacen.almacendematerial.Exceptions.ExcepcionAmi;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -97,5 +98,29 @@ public class Celda {
             s += "         |         |         |";
         }
         return s;
+    }
+
+    public static void main(String[] args) {
+        Celda micelda = new Celda(4);
+        LocalDate fecha = LocalDate.parse("2023-06-11");
+        Articulo a = new Articulo("CPU1001",ETipoArticulo.CPU,2, fecha,25);
+        Articulo ar = new Articulo("CPU1002",ETipoArticulo.CPU,2, fecha,25);
+        Articulo ar1 = new Articulo("CPU1003",ETipoArticulo.CPU,2, fecha,25);
+        Articulo ar2= new Articulo("CPU1004",ETipoArticulo.CPU,2, fecha,25);
+        Articulo ar3= new Articulo("CPU1005",ETipoArticulo.CPU,2, fecha,25);
+        try {
+            micelda.meter(a);
+            micelda.meter(a);
+
+        }catch (ExcepcionAmi ea){
+            System.out.println(ea.getMessage());
+        }try {
+            micelda.meter(ar1);
+            micelda.meter(ar2);
+
+        }catch (ExcepcionAmi ea){
+            System.out.println(ea.getMessage());
+        }
+
     }
 }

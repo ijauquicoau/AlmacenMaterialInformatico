@@ -19,12 +19,12 @@ public class Articulo {
         this.id = id;
 
     }
-    public Articulo(String Ar, ETipoArticulo e, int n,LocalDate lc,double d){
-        this.id = Ar;
-        this.tipo = e;
-        this.espacio = n;
+    public Articulo(String id, ETipoArticulo tipo, int espacio,LocalDate lc,double precio){
+        this.id = id;
+        this.tipo = tipo;
+        this.espacio = espacio;
         this.fechaAdquisicion = lc;
-        this.precio = d;
+        this.precio = precio;
 
     }
     public boolean equals(Object o){
@@ -97,7 +97,10 @@ public class Articulo {
     public static void main(String[] args) {
         LocalDate fecha = LocalDate.parse("2023-06-11");
         Articulo a = new Articulo("CPU1001",ETipoArticulo.CPU,2, fecha,25);
-        System.out.println(a);
+        Articulo ar = new Articulo("CPU1002",ETipoArticulo.CPU,2, fecha,25);
+        System.out.println(a.id);
+        System.out.println(a.equals(ar));
+
     }
 }
 
