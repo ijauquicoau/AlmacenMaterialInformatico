@@ -5,14 +5,19 @@ import java.util.Scanner;
 public class Entrada {//queda por revisar
 
     public static int LeerEntero(String s,int n1,int n2){
-        Scanner teclado = new Scanner(System.in);
-        int v = -1;
-        while (v < n1 || v > n2) {
-            System.out.printf("%s [%d-%d]: ", s, n1, n2);
-            v = teclado.nextInt();
-        }
-        teclado.nextLine();
-        return v;
+        Scanner scanner = new Scanner(System.in);
+        int numero;
+
+        do {
+            System.out.println(s);
+            while (!scanner.hasNextInt()) {
+                System.out.println("Introduce un número entero válido.");
+                scanner.next();
+            }
+            numero = scanner.nextInt();
+        } while (numero < n1 || numero > n2);
+
+        return numero;
     }
 
     public static double leerDecimalPositivo(String s){

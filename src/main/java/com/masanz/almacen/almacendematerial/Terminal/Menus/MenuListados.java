@@ -1,7 +1,12 @@
 package com.masanz.almacen.almacendematerial.Terminal.Menus;
 
 import com.masanz.almacen.almacendematerial.Managers.GestorAlmacen;
+import com.masanz.almacen.almacendematerial.Model.Articulo;
+import com.masanz.almacen.almacendematerial.Model.EOrden;
+import com.masanz.almacen.almacendematerial.Model.ETipoArticulo;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MenuListados {
@@ -49,9 +54,51 @@ public class MenuListados {
     }
 
     private void articuloPorTipoPrecio(){
+        Scanner scanner = new Scanner(System.in);
+
+        String orden = "";
+        System.out.println("Por defecto orden Ascendente 'A' y orden Descendente 'D': ");
+        orden = scanner.nextLine();
+        Map<ETipoArticulo, List<Articulo>> lista;
+
+        if (orden == "A" || orden == "D") {
+            lista = gestorAlmacen.articulosPorTipoPrecio(EOrden.Descendente);
+        } else {
+            lista = gestorAlmacen.articulosPorTipoPrecio(EOrden.Ascendente);
+        }
+        for (ETipoArticulo tipo : lista.keySet()) {
+            List<Articulo> list = lista.get(tipo);
+            System.out.println(tipo.toString());
+            for (Articulo articulo : list) {
+                System.out.println("                " + articulo.getId()+"      " +articulo.getFechaAdquisicion()+"     "+articulo.getPrecio());
+
+            }
+
+        }
 
     }
     private void articuloPorTipoFecha(){
+        Scanner scanner = new Scanner(System.in);
+
+        String orden = "";
+        System.out.println("Por defecto orden Ascendente A u orden Descendente D: ");
+        orden = scanner.nextLine();
+        Map<ETipoArticulo, List<Articulo>> lista;
+
+        if (orden == "A" || orden == "D") {
+            lista = gestorAlmacen.articulosPorTipoFecha(EOrden.Descendente);
+        } else {
+            lista = gestorAlmacen.articulosPorTipoFecha(EOrden.Ascendente);
+        }
+        for (ETipoArticulo tipo : lista.keySet()) {
+            List<Articulo> list = lista.get(tipo);
+            System.out.println(tipo.toString());
+            for (Articulo articulo : list) {
+                System.out.println("                " + articulo.getId()+"      " +articulo.getFechaAdquisicion()+"     "+articulo.getPrecio());
+
+            }
+
+        }
 
     }
     private void importePorTipos(){
