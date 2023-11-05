@@ -2,7 +2,7 @@ package com.masanz.almacen.almacendematerial.Terminal.IO;
 
 import java.util.Scanner;
 
-public class Entrada {//queda por revisar
+public class Entrada {
 
     public static int LeerEntero(String s,int n1,int n2){
         Scanner scanner = new Scanner(System.in);
@@ -44,4 +44,6 @@ public class Entrada {//queda por revisar
         System.out.print(s);
         return scanner.nextLine();
     }
+
+
 }

@@ -51,13 +51,13 @@ public class GestorAlmacen {
         }
         return false;
     }
-
+//obtienes la posicion del articulo del armario del articulo que metes
     public Posicion getPosicionArticulo(Articulo a) {
-        return armario.getPosicionArticulo(a);//revisar
+        return armario.getPosicionArticulo(a);
     }
 
     public List<Articulo> getArticulos(int n1, int n2) {
-        return armario.getArticulos(n1, n2);//revisar
+        return armario.getArticulos(n1, n2);
     }
 
     public int getOcupacionCelda(Posicion p) {
@@ -68,7 +68,7 @@ public class GestorAlmacen {
         return armario.existeIdArticulo(s);
 
     }
-
+//guarda el csv y en este caso lo muestra de forma en la que sale el tipo,id,espacio,fecha y precio
     public String saveCSV()throws ExcepcionAmi {
         String nombreArchivo = System.getProperty("user.dir")+ "\\backup\\ami_"+  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HHmmss"))+ ".csv";
         try {
@@ -92,7 +92,7 @@ public class GestorAlmacen {
         }
         return nombreArchivo;
     }
-
+//cargas el csv
     public void loadCSV(String s) throws ExcepcionAmi {
         CsvLoader.cargar(s, armario);
     }
@@ -101,13 +101,14 @@ public class GestorAlmacen {
         return armario.getArticulo(s);
     }
 
+    //compara los artiuclos por el precio y comprueba cual es el precio mayor y menor para ponerlo en orden
     public Map<ETipoArticulo, List<Articulo>> articulosPorTipoPrecio(EOrden orden) {
 
-        return armario.articulosPorTipo((o1, o2) ->(int)(o1.getPrecio() - o2.getPrecio()),orden);
+        return armario.articulosPorTipo((o1, o2) ->(int)(o2.getPrecio() - o1.getPrecio()),orden);
 
     }
 
-
+    //compara los artiuclos por el precio y comprueba cual es el fecha mayor y menor para ponerlo en orden
     public Map<ETipoArticulo, List<Articulo>> articulosPorTipoFecha(EOrden orden) {
 
         return armario.articulosPorTipo((o1, o2) -> o1.getFechaAdquisicion().compareTo(o2.getFechaAdquisicion()),orden);

@@ -75,16 +75,18 @@ public class MenuPrincipal {
             } else if(numero == 7){
                 cargaDatos();
 
+            } else {
+                break;
             }
             numero = -1;
         }
     }
-
+// muestras el armario
     private void mostrarArmario() {
         Armario a = gestorAlmacen.getArmario();
         System.out.println(a);
     }
-
+//metes el articulo con cada categoria y en orden, si no lo pones bien, en la categoria donde hayas puesto algo mal te saldra un error y te pondra para intentar de nuevo
     private void meterArticulo() {
         String id = "";
         double precio = -1;
@@ -100,7 +102,7 @@ public class MenuPrincipal {
             }
         }
 
-        while (tipo != null){
+        while (tipo == null){
             System.out.print("tipo del articulo (Monitor,CPU,Impresora,Fax,Scanner)");
             try {
                 tipo = ETipoArticulo.valueOf(scanner.next());
@@ -109,39 +111,47 @@ public class MenuPrincipal {
             }
         }
         while (precio < 0  ){
-            System.out.println("Precio, ej. 1500.00");
+            System.out.print("Precio, ej. 1500.00: ");
             try{
-                precio = Double.parseDouble(scanner.next());
-            }catch (IllegalArgumentException e ){
-                System.out.println("No ha puesto el precio bien, inténtelo de nuevo");
+                String precioStr = scanner.next();
+                precio = Double.parseDouble(precioStr);
+            }catch (Exception e ){
+                System.out.println("No ha puesto el precio bien, inténtelo de nuevo"+ e.getMessage());
             }
         }
-        while (fecha != null){
-            System.out.println("fecha, ej. 14-05-2002");
-        }try{
-            fecha = LocalDate.parse(scanner.next());
-        }catch (IllegalArgumentException e){
-            System.out.println("No ha puesto la fecha en el formato indicado, inténtelo de nuevo");
+        while (fecha == null) {
+            System.out.print("fecha, ej. 2002-12-09: ");
+            try {
+                fecha = LocalDate.parse(scanner.next());
+            } catch (IllegalArgumentException e) {
+                System.out.println("No ha puesto la fecha en el formato indicado, inténtelo de nuevo");
+            }
         }
 
-        while (espacio<0 || espacio>4){
-            System.out.println("El espacio debe estar entre el 0 y el 4, ej. 1");
-        }try {
-            espacio = Integer.parseInt(scanner.next());
-        }catch (IllegalArgumentException e){
-            System.out.println("No ha puesto un espacio dentro del rango anterios, inténtelo de nuevo");
+        while (espacio<1 || espacio>4){
+            System.out.print("El espacio debe estar entre el 1 y el 4, ej. 1: ");
+            try {
+                espacio = Integer.parseInt(scanner.next());
+            }catch (IllegalArgumentException e){
+                System.out.println("No ha puesto un espacio dentro del rango anterios, inténtelo de nuevo");
+            }
         }
         Articulo a = new Articulo(id, tipo, espacio, fecha, precio);
-
+        try {
+            gestorAlmacen.meterArticulo(a);
+        }catch(ExcepcionAmi e) {
+            System.out.println(e.getMessage());
+        }
 
     }
+    //consultas el articulo que hay en el armario, el cual te devuelve cada una de sus caracterisiticas(tipo,precio...)
 
     private void consultarArticulo() {
         Scanner scanner= new Scanner(System.in);
 
         System.out.print("Id del articulo (7 caracteres), ej. IMP0001: ");
 
-        String id= scanner.nextLine();
+        String id= scanner.next();
 
         Articulo a= gestorAlmacen.getArticulo(id);
         if (a==null){
@@ -157,28 +167,83 @@ public class MenuPrincipal {
     }
 
     private void consultarCelda() {
-        //todo
+        //consultar cada celda donde se muestra el tipo y por cada tipo los objetos que hay en cada tipo
         Scanner scanner = new Scanner(System.in);
         System.out.println("Celda, ej. A1,B4");
         String celda = scanner.next();
 
         Posicion p = new Posicion(celda);
-        List<Articulo> lista = gestorAlmacen.getArticulos(p.getFila(),p.getColumna());
+        List<Articulo> lista = gestorAlmacen.getArticulos(p.getFilaNumber(),p.getColumna());
 
-        for (int i = 0; i < lista.size(); i++) {
+                for (int i = 0; i < lista.size(); i++) {
+                    Articulo a = lista.get(i);
+                    if (a.getEspacio() == 1) {
+                        System.out.println("| " + a.getId() + "    |");
+                    } else if (a.getEspacio() == 2) {
+                        System.out.println("|        " + a.getId() + "        |");
+                    } else if (a.getEspacio() == 3) {
+                        System.out.println("|               " + a.getId() + "               |");
+                    } else if (a.getEspacio() == 4) {
+                        System.out.println("|                      " + a.getId() + "                      |");
 
-        }
-        for (int i = 0; i < lista.size(); i++) {
+                    }
+                }
 
-        }
-    }
+
+
+
+                for (int i = 0; i < lista.size(); i++) {
+                    Articulo a = lista.get(i);
+                    if (a.getEspacio() == 1) {
+                        System.out.println(String.format("|         %8s", a.getTipo().toString()) + "           ");
+                    } else if (a.getEspacio() == 2) {
+                        System.out.println(String.format("|         %8s", a.getTipo().toString()) + "                 ");
+                    } else if (a.getEspacio() == 3) {
+                        System.out.println(String.format("|         %8s", a.getTipo().toString()) + "         ");
+                    } else if (a.getEspacio() == 4) {
+                        System.out.println(String.format("|         %8s", a.getTipo().toString()) + "           ");
+                    }
+                }
+
+
+                // Fechas
+                for (int i = 0; i < lista.size(); i++) {
+                    Articulo a = lista.get(i);
+                    if (a.getEspacio() == 1) {
+                        System.out.println("| " + a.getFechaAdquisicion() + "    |");
+                    } else if (a.getEspacio() == 2) {
+                        System.out.println("|        " + a.getFechaAdquisicion() + "        |");
+                    } else if (a.getEspacio() == 3) {
+                        System.out.println("|               " + a.getFechaAdquisicion() + "               |");
+                    } else if (a.getEspacio() == 4) {
+                        System.out.println("|                      " + a.getFechaAdquisicion() + "                      |");
+
+                    }
+                }
+
+
+
+                for (int i = 0; i < lista.size(); i++) {
+                    Articulo a = lista.get(i);
+                    if (a.getEspacio() == 1) {
+                        System.out.println(String.format("|         %8s", a.getPrecio()) + "           ");
+                    } else if (a.getEspacio() == 2) {
+                        System.out.println(String.format("|         %8s", a.getPrecio()) + "                 ");
+                    } else if (a.getEspacio() == 3) {
+                        System.out.println(String.format("|         %8s", a.getPrecio()) + "         ");
+                    } else if (a.getEspacio() == 4) {
+                        System.out.println(String.format("|         %8s", a.getPrecio()) + "           ");
+                    }
+                }
+            }
+
 
     private void menuListados() {
-        GestorAlmacen gestor = new GestorAlmacen();
-        MenuPrincipal menu = new MenuPrincipal(gestor);
+        MenuListados menu = new MenuListados(gestorAlmacen);
         menu.run();
 
     }
+    // guardar el csv
     private void grabarEstado() {
         try {
             String archivo = CsvSaver.guardarCSV(gestorAlmacen);
@@ -188,14 +253,14 @@ public class MenuPrincipal {
             System.out.println(e.getMessage());
         }
     }
-
+// carga el csv correspondiente
     private void cargaDatos() {
         Scanner scanner = new Scanner(System.in);
 
         try{
             System.out.println("Introduce el nombre del fichero ej. backup/ami_2023-06-05_193120.csv :");
             String s= scanner.nextLine();
-            CsvLoader.cargar(s,new Armario());//repasar
+            CsvLoader.cargar(s,gestorAlmacen.getArmario());//repasar
 
         } catch (Exception e){
             System.out.println("Archivo seleccionado no grabado");

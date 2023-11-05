@@ -27,6 +27,7 @@ public class Articulo {
         this.precio = precio;
 
     }
+    //comprueba si los articulos son iguales o no
     public boolean equals(Object o){
         if (!(o instanceof Articulo)){
             return false;

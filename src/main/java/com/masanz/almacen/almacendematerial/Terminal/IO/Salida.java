@@ -3,6 +3,7 @@ package com.masanz.almacen.almacendematerial.Terminal.IO;
 import com.masanz.almacen.almacendematerial.Model.Armario;
 import com.masanz.almacen.almacendematerial.Model.Articulo;
 import com.masanz.almacen.almacendematerial.Model.ETipoArticulo;
+import com.masanz.almacen.almacendematerial.Terminal.Menus.MenuPrincipal;
 
 import java.util.List;
 import java.util.Map;

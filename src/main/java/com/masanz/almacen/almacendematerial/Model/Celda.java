@@ -31,7 +31,7 @@ public class Celda {
         this.lista = lista;
     }
 
-
+//mete el articulo, con excepciones de si ya esta el articulo o si no hay espacio en la celda correspondiente
     public void meter(Articulo a) throws ExcepcionAmi{
 
         if (estaArticulo(a)){
@@ -42,9 +42,11 @@ public class Celda {
             lista.add(a);
         }
     }
+    //obtienes el espacio libre de la celda
     public int getEspacioLibre(){
         return this.espacio - getEspacioOcupado();
     }
+    //obtienes el espacio ocupado de la celda
     public int getEspacioOcupado(){
         int espacioOcupado = 0;
         for (Articulo a: lista) {
@@ -52,6 +54,7 @@ public class Celda {
         }
         return espacioOcupado;
     }
+    //comprueba si está el articulo
     public boolean estaArticulo(Articulo a){
 
         return lista.contains(a);
@@ -61,7 +64,7 @@ public class Celda {
     }
     public Articulo getArticulo(String id){
         for (Articulo a: lista) {
-            if (a.getId()== id)
+            if (a.getId().equals(id))
                 return a;
         }
         return null;
@@ -100,7 +103,7 @@ public class Celda {
         return s;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//pruebas
         Celda micelda = new Celda(4);
         LocalDate fecha = LocalDate.parse("2023-06-11");
         Articulo a = new Articulo("CPU1001",ETipoArticulo.CPU,2, fecha,25);
